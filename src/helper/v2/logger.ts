@@ -85,7 +85,7 @@ function configureLogger(logPath: string | null): void {
                 const reqID: string = ' --- ';
                 const userID: string = '---';
 
-                const logSection: string = loggerSectionName(info.eLS);
+                const logSection: string = loggerSectionName(info.eLS as LS);
                 const stack: string = info.stack ? `\n${info.stack}` : '';
                 return `${info.timestamp} [${reqID}] U${userID} ${logSection} ${info.level}: ${info.message}${stack}`;
             })
