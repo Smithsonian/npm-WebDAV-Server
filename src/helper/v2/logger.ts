@@ -117,8 +117,8 @@ function configureLogger(logPath: string | null): void {
         logger.error(error);
     }
 
-    info('**************************', LS.eSYS);
-    info(`Writing logs to ${path.resolve(logPath)}`, LS.eSYS);
+    // info('**************************', LS.eSYS);
+    // info(`Writing logs to ${path.resolve(logPath)}`, LS.eSYS);
 }
 
 configureLogger(null);

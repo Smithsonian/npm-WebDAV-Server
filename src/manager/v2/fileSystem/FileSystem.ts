@@ -49,7 +49,6 @@ import { Lock } from '../../../resource/v2/lock/Lock'
 import { Path } from '../Path'
 import * as crypto from 'crypto'
 import { ensureValue, promisifyCall } from '../../../helper/v2/promise'
-// import * as LOG from '../../../helper/v2/logger';
 
 class BufferedIsLocked
 {

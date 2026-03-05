@@ -114,14 +114,16 @@ export class RequestContext
     overridePrivileges : boolean
     requested : RequestedResource
     rootPath : string
+    uriPrefix : string | undefined
     headers : RequestContextHeaders
     server : WebDAVServer
     user : IUser
-    
+
     protected constructor(server : WebDAVServer, uri : string, headers : { [name : string] : string | string[] }, rootPath ?: string)
     {
         this.overridePrivileges = false;
         this.rootPath = rootPath;
+        this.uriPrefix = undefined;
         this.headers = new RequestContextHeaders(headers);
         this.server = server;
         
@@ -169,10 +171,20 @@ export class RequestContext
         if(!uri)
             uri = this.requested.uri;
 
+        let prefix = '';
+        if(this.uriPrefix)
+        {
+            prefix = this.uriPrefix;
+            if(prefix[0] !== '/')
+                prefix = '/' + prefix;
+            if(prefix[prefix.length - 1] === '/')
+                prefix = prefix.slice(0, -1);
+        }
+
         if(this.server.options.respondWithPaths)
-            return this.rootPath ? this.rootPath + uri : uri;
+            return this.rootPath ? this.rootPath + prefix + uri : prefix + uri;
         else
-            return (this.prefixUri() + uri).replace(/([^:])\/\//g, '$1/');
+            return (this.prefixUri() + prefix + uri).replace(/([^:])\/\//g, '$1/');
     }
 
     prefixUri() : string
